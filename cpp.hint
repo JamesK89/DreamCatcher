@@ -1,0 +1,8 @@
+#define END_CALL_PATCHES (void*)NULL };
+#define DECLARE_DF_FUNCTION(name) MethodInfo* name##_METHOD_INFO = AppendMethodInfo( Global, { #name, &name##_CALL_ADDRESSES[0], (const void*)&##name, NULL });
+#define DECLARE_DF_FUNCTION_IN_DUST(address, name) DECLARE_DF_FUNCTION_IN_(address, name)
+#define DECLARE_DF_FUNCTION_IN_DUST(address, name)
+#define PATCH_CALL_IN_DUST(address) PATCH_CALL_IN_(address)
+#define PATCH_CALL_IN_DUST(address)
+#define PATCH_CALL_IN_DUST(address) PATCH_CALL_IN_(address)
+#define PATCH_CALL_IN_DUST(address)
