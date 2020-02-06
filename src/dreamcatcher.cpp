@@ -8,13 +8,16 @@ void __cdecl STUB(void)
 
 void** DF_INTERNAL_ChangeDisplayMode_Addr = 
 #if TITANIC
+	(void**)NULL;
 #elif LUNICUS
+	(void**)NULL;
 #else
 	(void**)0x004468A8;
 #endif
 
 void** DF_INTERNAL_EnumDisplaySettings_Addr = 
 #if TITANIC
+	(void**)NULL;
 #elif LUNICUS
 #else
 	(void**)0x00444F54;
@@ -22,7 +25,9 @@ void** DF_INTERNAL_EnumDisplaySettings_Addr =
 
 void** DF_INTERNAL_ExitWindowsEx_Addr = 
 #if TITANIC
+	(void**)NULL;
 #elif LUNICUS
+	(void**)NULL;
 #else
 	(void**)0x00445370;
 #endif

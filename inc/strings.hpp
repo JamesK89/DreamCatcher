@@ -35,4 +35,6 @@ extern char* DF_INTERNAL_LoadStringBuffer;
 // It might be a platform abstraction.
 const char* __cdecl DF_LoadString(unsigned int);
 
+void __cdecl DF_ConcatStrings(const char* pFrom, char* pTo);
+
 #endif

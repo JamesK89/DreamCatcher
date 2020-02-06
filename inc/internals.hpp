@@ -57,4 +57,6 @@ DF_INTERNAL_FUNCTION_DECLARE(__cdecl, void, DF_ReadFileChunk, HANDLE*, void*);
 // are "appl:" but later are updated with values such as; "appl:local:movies", "appl:local:inven" and so forth.
 DF_INTERNAL_FUNCTION_DECLARE(__cdecl, void, DF_GetTableString, WORD, char*);
 
+DF_INTERNAL_FUNCTION_DECLARE(__cdecl, void, DF_FatalError, WORD, WORD);
+
 #endif

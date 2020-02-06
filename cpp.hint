@@ -6,3 +6,4 @@
 #define PATCH_CALL_IN_DUST(address)
 #define PATCH_CALL_IN_DUST(address) PATCH_CALL_IN_(address)
 #define PATCH_CALL_IN_DUST(address)
+#define BEGIN_CALL_PATCHES(name) const void* name##_CALL_ADDRESSES[] = {
