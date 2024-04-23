@@ -134,6 +134,18 @@ void __cdecl DF_CreateGameWindow(
 			}
 		}
 
+#if 1
+		HWND hConsole = GetConsoleWindow();
+		if (hConsole)
+		{
+			//SetParent(hConsole, handle);
+			SetWindowPos(hConsole, 
+				HWND_TOPMOST,
+				0, 0, 0, 0,
+				SWP_NOMOVE | SWP_NOSIZE);
+		}
+#endif
+
 		printf("Created game window!\n");
 	}
 }

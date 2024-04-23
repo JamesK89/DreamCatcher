@@ -192,3 +192,18 @@ END_CALL_PATCHES
 
 DECLARE_DF_FUNCTION_IN_DUST(
 	0x0042CE70, DF_GetFileExists)
+
+// Override this function to prevent the game
+// from asking for a CD-ROM
+DWORD __cdecl DF_Prompt_CDROM()
+{
+	printf("Skipping CD-ROM check\n");
+	return 0;
+}
+
+BEGIN_CALL_PATCHES(DF_Prompt_CDROM)
+	PATCH_CALL_IN_DUST(0x0042BDFA) // CD-ROM Check
+END_CALL_PATCHES
+
+DECLARE_DF_FUNCTION_IN_DUST(
+	0x0042b320, DF_Prompt_CDROM);

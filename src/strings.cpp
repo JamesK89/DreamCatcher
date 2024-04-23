@@ -889,3 +889,104 @@ END_CALL_PATCHES
 
 DECLARE_DF_FUNCTION_IN_DUST(
 	0x0042F400, DF_ConcatStrings)
+
+void __cdecl DF_ConvertString(char* pStr)
+{
+	char* base = pStr;
+	int count = 0;
+
+	while (*base++ != '\0')
+	{
+		count++;
+	}
+
+	memcpy(&pStr[1], pStr, sizeof(char) * count);
+
+	*pStr = (char)count;
+
+#if 1
+	if (count)
+	{
+		printf("Converted string \"%.*s\"\n", count, pStr + 1);
+	}
+#endif
+}
+
+BEGIN_CALL_PATCHES(DF_ConvertString)
+	PATCH_CALL_IN_DUST(0x0041CBA1)
+END_CALL_PATCHES
+
+DECLARE_DF_FUNCTION_IN_DUST(
+	0x0041CBB0, DF_ConvertString)
+
+
+char __cdecl DF_StringContainsString(
+	const char* pHaystack,
+	const char* pNeedle,
+	char numChars)
+{
+	char result = !numChars ? 1 : 0;
+
+#if 1
+	printf("Check if \"%.*s\" contains \"%.*s\"\n", numChars, pHaystack, numChars, pNeedle);
+#endif
+
+	if (!result)
+	{
+		do
+		{
+			if (!numChars)
+			{
+				result = 1;
+				break;
+			}
+
+			pHaystack++;
+			pNeedle++;
+
+			numChars--;
+		} while (DF_INTERNAL_CharacterTable[*pHaystack] ==
+				 DF_INTERNAL_CharacterTable[*pNeedle]);
+	}
+/*
+Check if "appl:" contains "dust:"
+Check if "ppl:l" contains "dust:"
+Check if "pl:lo" contains "dust:"
+Check if "l:loc" contains "dust:"
+Check if ":loca" contains "dust:"
+Check if "local" contains "dust:"
+Check if "ocal:" contains "dust:"
+*/
+/*
+undefined4 MaybeStringsAreEqualUpToN(byte *param_1,byte *param_2,short param_3)
+
+{
+  byte bVar1;
+  uint in_EAX;
+
+  do {
+	if (param_3 == 0) {
+	  return CONCAT22((short)(in_EAX >> 0x10),1);
+	}
+	in_EAX = (uint)*param_1;
+	bVar1 = *param_2;
+	param_1 = param_1 + 1;
+	param_2 = param_2 + 1;
+	param_3 = param_3 + -1;
+  } while (g_pCharacterTable[in_EAX] == g_pCharacterTable[bVar1]);
+  return 0;
+}
+*/
+
+	return result;
+}
+
+BEGIN_CALL_PATCHES(DF_StringContainsString)
+	PATCH_CALL_IN_DUST(0x00416980)
+	PATCH_CALL_IN_DUST(0x00416AF7)
+	PATCH_CALL_IN_DUST(0x00416C8D)
+	PATCH_CALL_IN_DUST(0x00424CE2)
+END_CALL_PATCHES
+
+DECLARE_DF_FUNCTION_IN_DUST(
+	0x0042F3B0, DF_StringContainsString)
