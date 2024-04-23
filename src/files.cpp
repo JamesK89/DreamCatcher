@@ -58,6 +58,27 @@ END_CALL_PATCHES
 DECLARE_DF_FUNCTION_IN_DUST(
 	0x0042CF20, DF_OpenFile);
 
+WORD __cdecl DF_CloseFile(
+	HANDLE* pFileHandle)
+{
+	BOOL result;
+
+	DF_ProcessMessages();
+
+	result = CloseHandle(*pFileHandle);
+
+	return result ? 0 : 0x006B;
+}
+
+BEGIN_CALL_PATCHES(DF_CloseFile)
+	PATCH_CALL_IN_DUST(0x00401B86)
+	PATCH_CALL_IN_DUST(0x00401D14)
+	PATCH_CALL_IN_DUST(0x0042B468)
+END_CALL_PATCHES
+
+DECLARE_DF_FUNCTION_IN_DUST(
+	0x0042CFB0, DF_CloseFile);
+
 WORD __cdecl DF_ReadIntoBuffer(
 	HANDLE* pFile,
 	char* pBuffer,
