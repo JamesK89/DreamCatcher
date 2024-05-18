@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="Debug|Win32">
@@ -70,7 +70,7 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <OutDir>..\</OutDir>
+    <OutDir>$(SolutionDir)..\</OutDir>
     <IncludePath>$(SolutionDir)inc;$(IncludePath)</IncludePath>
     <SourcePath>$(SolutionDir)src;$(SourcePath)</SourcePath>
     <IntDir>$(SolutionDir)out\$(Platform)\$(Configuration)\</IntDir>
@@ -96,6 +96,7 @@
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
       <AdditionalIncludeDirectories>$(SolutionDir)inc;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>DEBUG;_WINDLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -156,6 +157,7 @@
     <ClCompile Include="src\internals.cpp" />
     <ClCompile Include="src/strings.cpp" />
     <ClCompile Include="src/window.cpp" />
+    <ClCompile Include="src\port.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="inc/dreamcatcher.hpp" />
@@ -164,6 +166,8 @@
     <ClInclude Include="inc/strings.hpp" />
     <ClInclude Include="inc/window.hpp" />
     <ClInclude Include="inc\math.hpp" />
+    <ClInclude Include="inc\port.hpp" />
+    <ClInclude Include="inc\types.hpp" />
   </ItemGroup>
   <ItemGroup>
     <None Include="cpp.hint" />

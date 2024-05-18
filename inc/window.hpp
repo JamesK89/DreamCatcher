@@ -4,8 +4,9 @@
 
 #include <dreamcatcher.hpp>
 
-void __cdecl DF_InitUnknownStruct(DF_UnknownStruct*);
-void __cdecl DF_CreateMessageWindow(DF_WindowInfo**);
-void __cdecl DF_CreateGameWindow(const char*, DF_WindowInfo**);
+void __cdecl DF_InitSurface(DF_Surface*);
+void __cdecl DF_FreeSurface(DF_Surface*);
+void __cdecl DF_CreateMessageWindow(DF_Window**);
+void __cdecl DF_CreateGameWindow(const char*, DF_Window**);
 
 #endif

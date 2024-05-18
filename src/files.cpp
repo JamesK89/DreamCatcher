@@ -120,7 +120,9 @@ WORD __cdecl DF_ReadIntoBuffer(
 					}
 				}
 
+#if DEBUG
 				__debugbreak();
+#endif
 			}
 			else
 			{

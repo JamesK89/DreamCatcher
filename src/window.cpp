@@ -2,43 +2,74 @@
 #include <window.hpp>
 #include <internals.hpp>
 
-void __cdecl DF_InitUnknownStruct(
-	DF_UnknownStruct* pStruct)
+void __cdecl DF_InitSurface(
+	DF_Surface* pSurface)
 {
-	pStruct->unknown00_x00 = 0;
-	pStruct->unknown01_x04 = 0;
-	pStruct->unknown02_x08 = 0;
-	pStruct->unknown03_x0C = 0;
-	pStruct->unknown04_x10 = 0;
-	pStruct->unknown05_x14 = 0;
-	pStruct->unknown06_x18 = 0xFFFFFF;
-	pStruct->unknown07_x1C = 0xFF;
-	pStruct->unknown08_x20 = 0xFFFFFFFF;
-	pStruct->unknown11_x24 = 0xFFFFFFFF;
-	pStruct->unknown12_x28 = 1;
-	pStruct->unknown13_x2C = 0;
-	pStruct->unknown14_x30 = 0;
-	pStruct->unknown15_x34 = 0;
-	pStruct->unknown16_x38 = 0;
-	pStruct->unknown17_x3C = 0x0C;
-	pStruct->unknown18_x40 = 0;
-	pStruct->unknown19_x44 = 0;
-	pStruct->unknown20_x48 = 0;
-	pStruct->unknown21_x4C = 1;
-	pStruct->unknown22_x50 = 0;
-	pStruct->unknown23_x54 = 0;
+#if DEBUG
+	printf("DF_InitSurface\n");
+#endif
+
+	ZeroMemory(pSurface, sizeof(DF_Bitmap));
+
+	pSurface->backcolindex = 0xFF;
+	pSurface->backcol = 0xFFFFFFFF;
+	pSurface->fontsize = 12;
+	pSurface->patsolid = 1;
+	pSurface->pensize = 1;
+	*((DWORD*)&pSurface->pat[0]) = 0xFFFFFFFF;
+	*((DWORD*)&pSurface->pat[4]) = 0xFFFFFFFF;
 }
 
-BEGIN_CALL_PATCHES(DF_InitUnknownStruct)
+BEGIN_CALL_PATCHES(DF_InitSurface)
 	PATCH_CALL_IN_DUST(0x0042828C)
 	PATCH_CALL_IN_DUST(0x0042DDC1)
 	PATCH_CALL_IN_DUST(0x0042FEC2)
 END_CALL_PATCHES
 
-DECLARE_DF_FUNCTION_IN_DUST(0x0042D740, DF_InitUnknownStruct)
+DECLARE_DF_FUNCTION_IN_DUST(0x0042D740, DF_InitSurface)
+
+void __cdecl DF_FreeSurface(
+	DF_Surface* pSurface)
+{
+#if DEBUG
+	printf("DF_FreeSurface\n");
+#endif
+
+	if (pSurface)
+	{
+		if (pSurface->font)
+		{
+			DeleteObject(pSurface->font);
+		}
+
+		if (pSurface->pen)
+		{
+			DeleteObject(pSurface->pen);
+		}
+
+		if (pSurface->backbrush)
+		{
+			DeleteObject(pSurface->backbrush);
+		}
+
+		if (pSurface->brush)
+		{
+			DeleteObject(pSurface->brush);
+		}
+
+		ZeroMemory(pSurface, sizeof(DF_Surface));
+	}
+}
+
+BEGIN_CALL_PATCHES(DF_FreeSurface)
+	PATCH_CALL_IN_DUST(0x0042DDDA)
+	PATCH_CALL_IN_DUST(0x0042FE3D)
+END_CALL_PATCHES
+
+DECLARE_DF_FUNCTION_IN_DUST(0x0042D7B0, DF_FreeSurface)
 
 void __cdecl DF_CreateMessageWindow(
-	DF_WindowInfo** wnd)
+	DF_Window** wnd)
 {
 	if (wnd)
 	{
@@ -56,15 +87,15 @@ void __cdecl DF_CreateMessageWindow(
 			Global.appInstance,		// hInstance
 			NULL);					// lpParam
 
-		DF_WindowInfo* pWnd =
-			(DF_WindowInfo*)GlobalAlloc(
-				GMEM_FIXED, sizeof(DF_WindowInfo));
+		DF_Window* pWnd =
+			(DF_Window*)GlobalAlloc(
+				GMEM_FIXED, sizeof(DF_Window));
 
 		if (pWnd)
 		{
-			pWnd->hWnd = handle;
-			pWnd->hDC = GetDC(pWnd->hWnd);
-			DF_InitUnknownStruct(&pWnd->unknown);
+			pWnd->hwnd = handle;
+			pWnd->hdc = GetDC(pWnd->hwnd);
+			DF_InitSurface(&pWnd->surface);
 			Global.windows[*Global.numWindows] = pWnd;
 			Global.unknownWindowValues[*Global.numWindows] = 0;
 			*Global.numWindows += 1;
@@ -95,7 +126,7 @@ void PrintTableString(WORD id)
 
 void __cdecl DF_CreateGameWindow(
 	const char* unusedPrefixedString,
-	DF_WindowInfo** wnd)
+	DF_Window** wnd)
 {
 	if (wnd)
 	{
@@ -113,15 +144,15 @@ void __cdecl DF_CreateGameWindow(
 			Global.appInstance,	// hInstance
 			NULL);					// lpParam
 
-		DF_WindowInfo* pWnd =
-			(DF_WindowInfo*)GlobalAlloc(
-				GMEM_FIXED, sizeof(DF_WindowInfo));
+		DF_Window* pWnd =
+			(DF_Window*)GlobalAlloc(
+				GMEM_FIXED, sizeof(DF_Window));
 
 		if (pWnd)
 		{
-			pWnd->hWnd = handle;
-			pWnd->hDC = GetDC(pWnd->hWnd);
-			DF_InitUnknownStruct(&pWnd->unknown);
+			pWnd->hwnd = handle;
+			pWnd->hdc = GetDC(pWnd->hwnd);
+			DF_InitSurface(&pWnd->surface);
 			Global.windows[*Global.numWindows] = pWnd;
 			Global.unknownWindowValues[*Global.numWindows] = 0;
 			*Global.numWindows += 1;

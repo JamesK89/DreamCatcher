@@ -9,64 +9,7 @@
 #include <string.h>
 #include <math.h>
 
-typedef struct unknown_struct_t
-{
-	DWORD unknown00_x00;
-	DWORD unknown01_x04;
-	DWORD unknown02_x08;
-	DWORD unknown03_x0C;
-	DWORD unknown04_x10;
-	DWORD unknown05_x14;
-	DWORD unknown06_x18;
-	DWORD unknown07_x1C;
-	DWORD unknown08_x20;
-	DWORD unknown11_x24;
-	DWORD unknown12_x28;
-	DWORD unknown13_x2C;
-	DWORD unknown14_x30;
-	DWORD unknown15_x34;
-	DWORD unknown16_x38;
-	DWORD unknown17_x3C;
-	DWORD unknown18_x40;
-	DWORD unknown19_x44;
-	DWORD unknown20_x48;
-	DWORD unknown21_x4C;
-	DWORD unknown22_x50;
-	DWORD unknown23_x54;
-} DF_UnknownStruct;
-
-typedef struct window_struct_t
-{
-	HWND hWnd;
-	HDC hDC;
-	DF_UnknownStruct unknown;
-} DF_WindowInfo;
-
-typedef struct method_info_t
-{
-	const char* methodName;
-	const void** callAddresses;
-	const void* newAddress;
-	const void* oldAddress;
-	struct method_info_t* next;
-} MethodInfo;
-
-typedef struct global_state_t
-{
-	HINSTANCE appInstance;
-	HINSTANCE dllInstance;
-
-	FILE* console;
-	
-	HWND* mainWindowHandle;
-	DF_WindowInfo** windows;
-	DWORD* numWindows;
-	DWORD** unknownWindowValues;
-
-	MethodInfo* pMethodInfoList;
-} GlobalState;
-
-extern GlobalState Global;
+#include "types.hpp"
 
 #if TITANIC
 #elif LUNICUS

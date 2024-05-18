@@ -1,18 +1,24 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 16
-VisualStudioVersion = 16.0.29519.87
+# Visual Studio Version 17
+VisualStudioVersion = 17.8.34525.116
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "DREAMCATCHER", "DREAMCATCHER.vcxproj", "{BC74156B-86EE-4BDD-B0BD-84B61BA50B84}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|x64 = Debug|x64
 		Debug|x86 = Debug|x86
+		Release|x64 = Release|x64
 		Release|x86 = Release|x86
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{BC74156B-86EE-4BDD-B0BD-84B61BA50B84}.Debug|x64.ActiveCfg = Debug|x64
+		{BC74156B-86EE-4BDD-B0BD-84B61BA50B84}.Debug|x64.Build.0 = Debug|x64
 		{BC74156B-86EE-4BDD-B0BD-84B61BA50B84}.Debug|x86.ActiveCfg = Debug|Win32
 		{BC74156B-86EE-4BDD-B0BD-84B61BA50B84}.Debug|x86.Build.0 = Debug|Win32
+		{BC74156B-86EE-4BDD-B0BD-84B61BA50B84}.Release|x64.ActiveCfg = Release|x64
+		{BC74156B-86EE-4BDD-B0BD-84B61BA50B84}.Release|x64.Build.0 = Release|x64
 		{BC74156B-86EE-4BDD-B0BD-84B61BA50B84}.Release|x86.ActiveCfg = Release|Win32
 		{BC74156B-86EE-4BDD-B0BD-84B61BA50B84}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection

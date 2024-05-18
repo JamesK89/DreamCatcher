@@ -263,13 +263,13 @@ BOOL WINAPI DllMain(
 {
 	if (lpvReserved)
 	{
-		if (fdwReason == DLL_PROCESS_ATTACH)
+		if (fdwReason == DLL_PROCESS_ATTACH || fdwReason == DLL_THREAD_ATTACH)
 		{
 			Global.dllInstance = hinstDLL;
 
 			Global.mainWindowHandle = (HWND*)WINDOW_MAIN_HANDLE_ADDR;
 			Global.numWindows = (DWORD*)WINDOW_NUM_ADDR;
-			Global.windows = (DF_WindowInfo**)WINDOW_STRUCT_ADDR;
+			Global.windows = (DF_Window**)WINDOW_STRUCT_ADDR;
 			Global.unknownWindowValues = (DWORD**)WINDOW_UNKNOWN_ADDR;
 
 			AllocConsole();
@@ -282,7 +282,7 @@ BOOL WINAPI DllMain(
 
 			printf("Ready!\n");
 		}
-		else if (fdwReason == DLL_PROCESS_DETACH)
+		else if (fdwReason == DLL_PROCESS_DETACH || fdwReason == DLL_THREAD_DETACH)
 		{
 			Unpatch(Global);
 
