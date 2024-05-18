@@ -9,7 +9,7 @@ void __cdecl DF_InitSurface(
 	printf("DF_InitSurface\n");
 #endif
 
-	ZeroMemory(pSurface, sizeof(DF_Bitmap));
+	ZeroMemory(pSurface, sizeof(DF_Surface));
 
 	pSurface->backcolindex = 0xFF;
 	pSurface->backcol = 0xFFFFFFFF;
