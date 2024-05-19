@@ -154,10 +154,12 @@
   <ItemGroup>
     <ClCompile Include="src/dreamcatcher.cpp" />
     <ClCompile Include="src/files.cpp" />
+    <ClCompile Include="src\graphics.cpp" />
     <ClCompile Include="src\internals.cpp" />
     <ClCompile Include="src/strings.cpp" />
     <ClCompile Include="src/window.cpp" />
-    <ClCompile Include="src\port.cpp" />
+    <ClCompile Include="src\memory.cpp" />
+    <ClCompile Include="src\system.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="inc/dreamcatcher.hpp" />
@@ -165,8 +167,10 @@
     <ClInclude Include="inc/internals.hpp" />
     <ClInclude Include="inc/strings.hpp" />
     <ClInclude Include="inc/window.hpp" />
+    <ClInclude Include="inc\graphics.hpp" />
     <ClInclude Include="inc\math.hpp" />
-    <ClInclude Include="inc\port.hpp" />
+    <ClInclude Include="inc\memory.hpp" />
+    <ClInclude Include="inc\system.hpp" />
     <ClInclude Include="inc\types.hpp" />
   </ItemGroup>
   <ItemGroup>

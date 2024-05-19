@@ -272,6 +272,23 @@ BOOL WINAPI DllMain(
 			Global.windows = (DF_Window**)WINDOW_STRUCT_ADDR;
 			Global.unknownWindowValues = (DWORD**)WINDOW_UNKNOWN_ADDR;
 
+			Global.deviceContext = (HDC*)WIN_DEVICECONTRXT_ADDR;
+
+			Global.clutbmih = (BITMAPINFO*)BITMAPINFO_ADDR;
+
+			Global.isWinGFuncPtrAcquired = (DWORD*)WINGPOINTER_SET_ADDR;
+			Global.isOSBuildNumberTwo = (DWORD*)IS_OS_BUILD_NUMBER_TWO_ADDR;
+
+			Global.hGdi = (HMODULE*)GDI_MODULE_ADDR;
+
+			Global.gdi32CreateDIBSection = (LpfnGdi32CreateDIBSection*)GDI32_CREATEDIBSECTION_ADDR;
+			Global.gdi32SetDIBColorTable = (LpfnGdi32SetDIBColorTable*)GDI32_SETDIBCOLORTABLE_ADDR;
+
+			Global.win32BitBlt = (LpfnWin32BitBlt*)WIN32_BITBLT_ADDR;
+			Global.win32CreateBitmap = (LpfnWin32CreateBitmap*)WIN32_CREATEBITMAP_ADDR;
+			Global.win32CreateDC = (LpfnWin32CreateDC*)WIN32_CREATEDC_ADDR;
+			Global.win32SetDIBColorTable = (LpfnWin32SetDIBColorTable*)WIN32_SETDIBCOLORTABLE_ADDR;
+
 			AllocConsole();
 			freopen_s(&Global.console, "CONOUT$", "w", stdout);
 

@@ -1,72 +1,7 @@
 #include <dreamcatcher.hpp>
 #include <window.hpp>
 #include <internals.hpp>
-
-void __cdecl DF_InitSurface(
-	DF_Surface* pSurface)
-{
-#if DEBUG
-	printf("DF_InitSurface\n");
-#endif
-
-	ZeroMemory(pSurface, sizeof(DF_Surface));
-
-	pSurface->backcolindex = 0xFF;
-	pSurface->backcol = 0xFFFFFFFF;
-	pSurface->fontsize = 12;
-	pSurface->patsolid = 1;
-	pSurface->pensize = 1;
-	*((DWORD*)&pSurface->pat[0]) = 0xFFFFFFFF;
-	*((DWORD*)&pSurface->pat[4]) = 0xFFFFFFFF;
-}
-
-BEGIN_CALL_PATCHES(DF_InitSurface)
-	PATCH_CALL_IN_DUST(0x0042828C)
-	PATCH_CALL_IN_DUST(0x0042DDC1)
-	PATCH_CALL_IN_DUST(0x0042FEC2)
-END_CALL_PATCHES
-
-DECLARE_DF_FUNCTION_IN_DUST(0x0042D740, DF_InitSurface)
-
-void __cdecl DF_FreeSurface(
-	DF_Surface* pSurface)
-{
-#if DEBUG
-	printf("DF_FreeSurface\n");
-#endif
-
-	if (pSurface)
-	{
-		if (pSurface->font)
-		{
-			DeleteObject(pSurface->font);
-		}
-
-		if (pSurface->pen)
-		{
-			DeleteObject(pSurface->pen);
-		}
-
-		if (pSurface->backbrush)
-		{
-			DeleteObject(pSurface->backbrush);
-		}
-
-		if (pSurface->brush)
-		{
-			DeleteObject(pSurface->brush);
-		}
-
-		ZeroMemory(pSurface, sizeof(DF_Surface));
-	}
-}
-
-BEGIN_CALL_PATCHES(DF_FreeSurface)
-	PATCH_CALL_IN_DUST(0x0042DDDA)
-	PATCH_CALL_IN_DUST(0x0042FE3D)
-END_CALL_PATCHES
-
-DECLARE_DF_FUNCTION_IN_DUST(0x0042D7B0, DF_FreeSurface)
+#include <graphics.hpp>
 
 void __cdecl DF_CreateMessageWindow(
 	DF_Window** wnd)

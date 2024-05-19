@@ -4,6 +4,32 @@
 
 char* DF_INTERNAL_CharacterTable = (char*)0x0045EDF8;
 
+void __cdecl DF_GetString(
+	WORD a,
+	WORD b,
+	char* str
+)
+{
+	char buffer[256];
+	int charsCopied = LoadStringA(Global.appInstance, b + a, buffer, sizeof(buffer) / sizeof(char));
+
+	*str = (char)charsCopied;
+
+	if (charsCopied)
+	{
+#if DEBUG
+		printf("Retrieved string \"%s\"", buffer);
+#endif
+		memcpy(str + 1, buffer, (char)charsCopied);
+	}
+}
+
+BEGIN_CALL_PATCHES(DF_GetString)
+	PATCH_CALL_IN_DUST(0x004195AA)
+END_CALL_PATCHES
+
+DECLARE_DF_FUNCTION_IN_DUST(0x0042F990, DF_GetString)
+
 void __cdecl DF_CopyString(
 	char* pPfxFrom,
 	char* pPfxTo)

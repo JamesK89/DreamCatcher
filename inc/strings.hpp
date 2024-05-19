@@ -4,6 +4,8 @@
 
 #include <dreamcatcher.hpp>
 
+void __cdecl DF_GetString(WORD, WORD, char*);
+
 // Note about strings:
 //  The DreamFactory engine seems to use what I call "prefixed" strings.
 //  These are typically non-null terminated and the first character contains

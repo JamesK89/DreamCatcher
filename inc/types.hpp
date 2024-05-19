@@ -1,6 +1,24 @@
 #ifndef _INCLUDE_DREAMCATCHER_TYPES_H_
 #define _INCLUDE_DREAMCATCHER_TYPES_H_
 
+typedef unsigned char DFBYTE;
+typedef unsigned short DFWORD;
+typedef signed short DFSWORD;
+typedef unsigned long DFDWORD;
+typedef signed long DFSDWORD;
+typedef unsigned long long DFQWORD;
+typedef signed long long DFSQWORD;
+
+typedef HBITMAP (WINAPI *LpfnWin32CreateBitmap)(HDC hdc, BITMAPINFO* bmi, void** bits);
+typedef HDC (WINAPI *LpfnWin32CreateDC)(LPCSTR lpszDriver, LPCSTR lpszDevice, LPCSTR lpszOutput, const DEVMODEA* lpInitData);
+typedef UINT (WINAPI *LpfnWin32SetDIBColorTable)(HDC hdc, UINT iStart, UINT cEntries, const RGBQUAD* prgbq);
+typedef BOOL (WINAPI *LpfnWin32BitBlt)(HDC hdc, int x, int y, int cx, int cy, HDC hdcSrc, int x1, int y1, DWORD rop);
+
+typedef HBITMAP (WINAPI *LpfnGdi32CreateDIBSection)(HDC hdc, const BITMAPINFO* pbmi, UINT usage, VOID** ppvBits, HANDLE hSection, DWORD offset);
+typedef UINT (WINAPI *LpfnGdi32SetDIBColorTable)(HDC hdc, UINT iStart, UINT cEntries, const RGBQUAD* prgbq);
+
+typedef BOOL (WINAPI *LpfnGetVersionExA)(LPOSVERSIONINFOA lpVersionInformation);
+
 typedef enum : WORD {
 	unknownkind = 0,
 	actorkind,
@@ -567,6 +585,23 @@ typedef struct global_state_t
 	DF_Window** windows;
 	DWORD* numWindows;
 	DWORD** unknownWindowValues;
+
+	HMODULE* hGdi;
+
+	HDC* deviceContext;
+
+	BITMAPINFO* clutbmih;
+
+	DWORD* isOSBuildNumberTwo;
+	DWORD* isWinGFuncPtrAcquired;
+
+	LpfnWin32CreateBitmap* win32CreateBitmap;
+	LpfnWin32CreateDC* win32CreateDC;
+	LpfnWin32SetDIBColorTable* win32SetDIBColorTable;
+	LpfnWin32BitBlt* win32BitBlt;
+
+	LpfnGdi32CreateDIBSection* gdi32CreateDIBSection;
+	LpfnGdi32SetDIBColorTable* gdi32SetDIBColorTable;
 
 	MethodInfo* pMethodInfoList;
 } GlobalState;
